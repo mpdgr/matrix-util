@@ -102,8 +102,17 @@ class TestMatrixUtil(TestCase):
 
         self.assertEqual(expected, actual)
 
-    def test_substract_vectors(self):
+    def test_subtract_vectors(self):
         v1 = [1, 2, 3]
+        v2 = [3, 2, 1]
+        expected = [-2, 0, 2]
+
+        actual = matrix_util.subtract_vectors(v1, v2)
+
+        self.assertEqual(expected, actual)
+
+    def test_subtract_vectors_with_unwrap(self):
+        v1 = [[1, 2, 3]]
         v2 = [3, 2, 1]
         expected = [-2, 0, 2]
 
