@@ -4,6 +4,12 @@
 
 # ------------------------------ product of two matrices -----------------------------
 def matrix_product(m1, m2):
+    # if any of the matrices is as a single vector(list) wrap it into a list to form a matrix
+    if type(m1[0]) != list:
+        m1 = [m1]
+    if type(m2[0]) != list:
+        m1 = [m1]
+
     if not equal_rows(m1) or not equal_rows(m2):
         print("matrix input incorrect")
         return
@@ -38,6 +44,53 @@ def vector_dot_product(v1, v2):
     return output
 
 
+# --------------------------- outer product of two vectors ---------------------------
+def vector_outer_product(v1, v2):
+    output = []
+    for m in range(len(v1)):
+        output_row = []
+        for n in range(len(v2)):
+            output_row.append(v1[m] * v2[n])
+        output.append(output_row)
+    return output
+
+
+# ------------------ vector matrix row-wise/ element-wise product --------------------
+def vector_matrix_row_wise_product(vector, matrix):
+    # if the vectors is passed as a matrix (list of lists) unwrap it before processing
+    if type(vector) == list and type(vector[0]) == list:
+        vector = vector[0]
+
+    if len(vector) != len(matrix[0]):
+        print("vector length must equal matrix columns count")
+        return
+
+    output = []
+    for i in range(len(matrix)):
+        output.append(vector_element_wise_product(vector, matrix[i]))
+
+    return output
+
+
+# --------------------------- vector element-wise product ----------------------------
+def vector_element_wise_product(v1, v2):
+    # if any of the vectors is passed as a matrix (list of lists) unwrap it before processing
+    if type(v1) == list and type(v1[0]) == list:
+        v1 = v1[0]
+    if type(v2) == list and type(v2[0]) == list:
+        v2 = v2[0]
+
+    if len(v1) != len(v2):
+        print("vectors must be equal in length")
+        return
+
+    output = []
+    for i in range(len(v1)):
+        output.append(v1[i] * v2[i])
+
+    return output
+
+
 # --------------------------- vector product with a scalar ---------------------------
 def vector_scalar_product(vector, scalar):
     output = []
@@ -58,6 +111,58 @@ def matrix_scalar_product(matrix, scalar):
     return output
 
 
+# -------------------------------- subtract vectors ----------------------------------
+def subtract_vectors(v1, v2):
+    # if any of the vectors is passed as a matrix (list of lists) unwrap it before processing
+    if type(v1) == list and type(v1[0]) == list:
+        v1 = v1[0]
+    if type(v2) == list and type(v2[0]) == list:
+        v2 = v2[0]
+
+    if len(v1) != len(v2):
+        print("vectors must be equal in length")
+        return
+
+    output = []
+    for i in range(len(v1)):
+        output.append(v1[i] - v2[i])
+
+    return output
+
+
+# ------------------------------- subtract matrices ----------------------------------
+def subtract_matrices(m1, m2):
+    if not equal_size(m1, m2):
+        print("matrices must be equal in size")
+        return
+
+    output = []
+    for m in range(len(m1)):
+        output_row = []
+        for n in range(len(m1[0])):
+            output_row.append(m1[m][n] - m2[m][n])
+        output.append(output_row)
+
+    return output
+
+
+# ---------------------- subtract vector from matrix row-wise ------------------------
+def subtract_vector_from_matrix_rows(vector, matrix):
+    # if the vectors is passed as a matrix (list of lists) unwrap it before processing
+    if type(vector) == list and type(vector[0]) == list:
+        vector = vector[0]
+
+    if len(vector) != len(matrix[0]):
+        print("vectors must be equal in length")
+        return
+
+    output = []
+    for i in range(len(matrix)):
+        output.append(subtract_vectors(matrix[i], vector))
+
+    return output
+
+
 # -------------------------- extract matrix column to vector -------------------------
 def extract_column(matrix, column_index):
     column = []
@@ -74,6 +179,11 @@ def equal_rows(matrix):
             print("matrix lists must be equal in length")
             return False
     return True
+
+
+# ----------------------- check if given matrices have same size ---------------------
+def equal_size(m1, m2):
+    return len(m1) == len(m2) and len(m1[0]) == len(m2[0])
 
 
 # -- check if nr of cols of the first matrix equals nr of rows of the second matrix --

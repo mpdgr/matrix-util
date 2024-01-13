@@ -41,6 +41,15 @@ class TestMatrixUtil(TestCase):
 
         self.assertEqual(expected, actual)
 
+    def test_matrix_product_first_vector_unwrapped(self):
+        m1 = [2, 5]
+        m2 = [[3, -1], [7, 4]]
+        expected = [[41, 18]]
+
+        actual = matrix_util.matrix_product(m1, m2)
+
+        self.assertEqual(expected, actual)
+
     def test_matrix_product_second_vector(self):
         m1 = [[1, 2, 3, 4]]
         m2 = [[5], [6], [7], [8]]
@@ -90,5 +99,95 @@ class TestMatrixUtil(TestCase):
         expected = [[10, -2, 0], [8, 18, 8], [-20, 0, 14], [2, 4, 6]]
 
         actual = matrix_util.matrix_scalar_product(m1, scalar)
+
+        self.assertEqual(expected, actual)
+
+    def test_substract_vectors(self):
+        v1 = [1, 2, 3]
+        v2 = [3, 2, 1]
+        expected = [-2, 0, 2]
+
+        actual = matrix_util.subtract_vectors(v1, v2)
+
+        self.assertEqual(expected, actual)
+
+    def test_vector_element_wise_product(self):
+        v1 = [1, 2, 3]
+        v2 = [3, 2, 1]
+        expected = [3, 4, 3]
+
+        actual = matrix_util.vector_element_wise_product(v1, v2)
+
+        self.assertEqual(expected, actual)
+
+    def test_vector_element_wise_product_with_unwrap_first(self):
+        v1 = [[1, 2, 3]]
+        v2 = [3, 2, 1]
+        expected = [3, 4, 3]
+
+        actual = matrix_util.vector_element_wise_product(v1, v2)
+
+        self.assertEqual(expected, actual)
+
+    def test_vector_element_wise_product_with_unwrap_second(self):
+        v1 = [1, 2, 3]
+        v2 = [[3, 2, 1]]
+        expected = [3, 4, 3]
+
+        actual = matrix_util.vector_element_wise_product(v1, v2)
+
+        self.assertEqual(expected, actual)
+
+    def test_subtract_vector_from_matrix_rows(self):
+        vector = [1, 2, 3]
+        matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        expected = [[0, 0, 0], [3, 3, 3], [6, 6, 6]]
+
+        actual = matrix_util.subtract_vector_from_matrix_rows(vector, matrix)
+
+        self.assertEqual(expected, actual)
+
+    def test_subtract_vector_from_matrix_rows_with_unwrap(self):
+        vector = [[1, 2, 3]]
+        matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        expected = [[0, 0, 0], [3, 3, 3], [6, 6, 6]]
+
+        actual = matrix_util.subtract_vector_from_matrix_rows(vector, matrix)
+
+        self.assertEqual(expected, actual)
+
+    def test_vector_matrix_row_wise_product(self):
+        vector = [1, 2, 3]
+        matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        expected = [[1, 4, 9], [4, 10, 18], [7, 16, 27]]
+
+        actual = matrix_util.vector_matrix_row_wise_product(vector, matrix)
+
+        self.assertEqual(expected, actual)
+
+    def test_vector_matrix_row_wise_product_with_unwrap(self):
+        vector = [[1, 2, 3]]
+        matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        expected = [[1, 4, 9], [4, 10, 18], [7, 16, 27]]
+
+        actual = matrix_util.vector_matrix_row_wise_product(vector, matrix)
+
+        self.assertEqual(expected, actual)
+
+    def test_vector_outer_product(self):
+        v1 = [1, 2, 3]
+        v2 = [4, 5]
+        expected = [[4, 5], [8, 10], [12, 15]]
+
+        actual = matrix_util.vector_outer_product(v1, v2)
+
+        self.assertEqual(expected, actual)
+
+    def test_subtract_matrices(self):
+        m1 = [[5, -1, 0], [4, 9, 4], [-10, 0, 7], [1, 2, 3]]
+        m2 = [[5, -1, 0], [4, 9, 4], [-10, 0, 7], [1, 2, 3]]
+        expected = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+
+        actual = matrix_util.subtract_matrices(m1, m2)
 
         self.assertEqual(expected, actual)
